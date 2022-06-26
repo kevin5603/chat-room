@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.js"
+            integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+        <script src="../static/connect.js"></script>
+        <link rel="stylesheet" href="../static/app.css">
+<!--    <script src="/connect.js"></script>-->
+<!--    <link href="/app.css" rel="stylesheet">-->
+
+
+</head>
+<body>
+<div class="container">
+
+    <div id="main-content" class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="connect">WebSocket connection:</label>
+                    <button id="connect" class="btn btn-default" onclick="connect()">Connect</button>
+                    <button id="disconnect" class="btn btn-default" onclick="disconnect()" disabled="disabled">
+                        Disconnect
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button onclick="a()">aaa</button><hr>
+
+        <div class="row">
+            <div id="chat" class="col-md-12 border border-success rounded"
+                 style="height: 400px; padding-bottom: 10px">
+                <div id="content" class="overflow-auto" style="height: 340px"></div>
+                <div class="row">
+                    <div class="col-10">
+                        <input type="text" id="message" class="form-control">
+                    </div>
+                    <div class="col-1">
+                        <button id="send2" onclick="sendName()" class="btn btn-primary">圖片</button>
+                    </div>
+                    <div class="col-1">
+                        <button id="send3" onclick="sendName()" class="btn btn-success">送出</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var i = 0
+    function a() {
+        $("#content").append("<h1>hello world:" + i + "</h1>");
+        i += 1;
+    }
+</script>
+
+
+</body>
+</html>
