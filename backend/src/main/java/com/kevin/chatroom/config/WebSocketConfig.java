@@ -13,11 +13,12 @@ import org.springframework.web.socket.config.annotation.WebSocketTransportRegist
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Value("${frontend.url}")
-    private String FRONTEND_URL;
+    private String frontendUrl;
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.enableSimpleBroker("/topic", "/user");
+        registry.enableStompBrokerRelay(null);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/my-websocket")
-                .setAllowedOrigins(FRONTEND_URL)
+                .setAllowedOrigins(frontendUrl)
                 .withSockJS();
     }
 
