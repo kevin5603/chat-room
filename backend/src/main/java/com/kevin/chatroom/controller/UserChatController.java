@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +20,7 @@ import static com.kevin.chatroom.constant.MessageConst.CHAT_ROOM;
 public class UserChatController {
     private final MessageService messageService;
 
-    private final SimpMessagingTemplate template;
-
-    @MessageMapping("chat")
+    @MessageMapping("/chat")
     public void chat(@Payload TextMessage textMessage) {
         log.info("{}", textMessage);
         messageService.sendMessageToUser(textMessage);

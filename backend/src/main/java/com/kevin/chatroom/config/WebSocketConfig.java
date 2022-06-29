@@ -6,7 +6,6 @@ import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 @Configuration
 @EnableWebSocketMessageBroker
@@ -15,16 +14,27 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Value("${frontend.url}")
     private String frontendUrl;
 
+    @Value("${spring.rabbitmq.stomp.host}")
+    private String stompHost;
+
+    @Value("${spring.rabbitmq.stomp.port}")
+    private int stompPort;
+
+    @Value("${spring.rabbitmq.stomp.user}")
+    private String stompUser;
+
+    @Value("${spring.rabbitmq.stomp.passcode}")
+    private String stompPasscode;
+
+
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/topic", "/user");
-        registry.enableStompBrokerRelay(null);
-    }
-
-    @Override
-    public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
-
-        WebSocketMessageBrokerConfigurer.super.configureWebSocketTransport(registry);
+        registry
+                .enableStompBrokerRelay("/topic", "/user")
+                .setRelayHost(stompHost)
+                .setRelayPort(stompPort)
+                .setClientLogin(stompUser)
+                .setClientPasscode(stompPasscode);
     }
 
     // websocket handshake endpoint

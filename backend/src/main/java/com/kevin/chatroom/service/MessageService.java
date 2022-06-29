@@ -3,6 +3,7 @@ package com.kevin.chatroom.service;
 import com.kevin.chatroom.model.TextMessage;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitMessagingTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class MessageService {
     }
 
     public void sendMessageToUser(TextMessage textMessage) {
-        template.convertAndSendToUser(textMessage.getRoomId(), CHAT_ROOM, textMessage);
+        template.convertAndSend("/topic/chat", textMessage);
+//        template.convertAndSendToUser(textMessage.getRoomId(), CHAT_ROOM, textMessage);
     }
 }
